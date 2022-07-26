@@ -82,6 +82,20 @@ public:
 
 };
 map<char, Command *> commands;
+
+
+vector<Command *> parsedCommands(string _roverPath)
+{
+    vector<Command *> roverCommands;
+    for (int i = 0; i < _roverPath.size(); i++)
+    {
+        roverCommands.push_back(commands[_roverPath[i]]);
+    }
+
+    return roverCommands;
+}
+
+
 class Rover
 {
 
@@ -115,26 +129,6 @@ public:
 };
 vector<Rover *> rovers;
 
-
-class Parser
-{
-public:
-    Parser()
-    {
-    }
-
-    vector<Command *> parsedCommands(string _roverPath)
-    {
-        vector<Command *> roverCommands;
-        for (int i = 0; i < _roverPath.size(); i++)
-        {
-            roverCommands.push_back(commands[_roverPath[i]]);
-        }
-
-        return roverCommands;
-    }
-};
-Parser parser;
 
 
 class Plateau
@@ -172,7 +166,7 @@ public:
         for (int i = 0; i < rovers.size(); i++)
         {
 
-            rovers[i]->runRover(parser.parsedCommands(rovers[i]->roverPath));
+            rovers[i]->runRover(parsedCommands(rovers[i]->roverPath));
             cout << endl;
         }
     }
